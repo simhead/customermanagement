@@ -5,7 +5,6 @@ import io.swagger.api.*;
 import io.swagger.model.*;
 
 import java.util.List;
-import io.swagger.api.NotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,8 +18,7 @@ public class ListCustomersApiServiceImpl extends ListCustomersApiService {
 	
     @Override
     public Response listAllCustomers(SecurityContext securityContext) throws NotFoundException {
-        // do some magic!
-    	// Configure Jinq for the given JPA database connection
+        // Configure Jinq for the given JPA database connection
     	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
     	EntityManager em = entityManagerFactory.createEntityManager();
     	
@@ -36,6 +34,11 @@ public class ListCustomersApiServiceImpl extends ListCustomersApiService {
     	    	
     	customers_json += (new Customer(customers.get(ix).getCustomerid(),customers.get(ix).getFirstname(),
 				customers.get(ix).getLastname(),customers.get(ix).getAddress()).toString())+"]\n}";
-        return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, customers_json)).build();
+    	
+    	ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, customers_json);
+		responseMessage.setCode(200);
+	
+		return Response.ok().entity(responseMessage).build();
+     
     }
 }

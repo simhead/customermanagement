@@ -9,5 +9,5 @@ public class CustomerApiServiceFactory {
 
     public static CustomerApiService getCustomerApi() {
         return service;
-    }
+    } 
 }

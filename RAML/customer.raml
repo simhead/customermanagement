@@ -48,7 +48,8 @@ types:
     displayName: "Create customer"
     description: "Create new customer"
     body:
-      type: "Customer"
+      application/json:
+        type: "string"
     responses:
       201:
         description: "Created successfully"
@@ -80,7 +81,7 @@ types:
     displayName: "Update customer by customer ID"
     description: "This can only be done by the logged in user."
     body:
-      type: "Customer"
+      type: "string"
     responses:
       200:
         description: "Updated successfully"

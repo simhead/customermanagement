@@ -91,7 +91,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/Customer"
+        	  "type" : "string"
           }
         } ],
         "responses" : {

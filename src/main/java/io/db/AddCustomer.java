@@ -19,7 +19,6 @@ public class AddCustomer {
 		DBCustomer c = new DBCustomer();
 		c.setFirstname(firstname);
 		c.setLastname(lastname);
-		;
 		c.setAddress(address);
 		return c;
 	}
@@ -51,7 +50,7 @@ public class AddCustomer {
 		entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
 
 		// create sample data
-		AddCustomer.createDatabase(entityManagerFactory, "test1 firstname", "test1 lastname", "test1 address");
+		AddCustomer.createDatabase(entityManagerFactory, "test12 firstname", "test12 lastname", "test12 address");
 	}
 
 }

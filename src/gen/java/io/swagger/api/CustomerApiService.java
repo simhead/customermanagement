@@ -19,5 +19,5 @@ import javax.ws.rs.core.SecurityContext;
 public abstract class CustomerApiService {
     public abstract Response deleteCustomer(String custId,SecurityContext securityContext) throws NotFoundException;
     public abstract Response getCustomer(String custId,SecurityContext securityContext) throws NotFoundException;
-    public abstract Response updateCustomer(String custId,Customer body,SecurityContext securityContext) throws NotFoundException;
+    public abstract Response updateCustomer(String custId,String body,SecurityContext securityContext) throws NotFoundException;
 }

@@ -27,21 +27,31 @@ Design a RESTful API using RAML that contains a single resource, customers, and 
 •   Deletes a customer
 You may constrain the customer object to first name, last name and addresses, and the format to JSON.
 
-Tools and libs:
-1. Jetty server for handling API request
-2. Mysql instance running in cloud docker container: jdbc:mysql://simdocker.eastus.cloudapp.azure.com:3306/listtest
-3. Table definition for Customer schema
-4. used Java Persistence API for DB connectivity and Jinq for DB queries
-5. Postman for REST API testing:
+APPROACH:
+- Design:> used https://studio.restlet.com studio to define/design API specification
+- Development:> 
+	- restlet studio to export to RAML 1.0
+	- eclipse for development IDE
+	- GIT for source code version control
+	- swagger-codegen for Java (JAX-RS) server stubs
+	- Jetty server for handling API request/response
+	- maven for building and running server environment
+	- json-simple library for handing json string
+	- mysql server for data storage
+	- docker to run mysql server as a containerized DB server
+	- mysql-connect and JPA (Java Persistence API) libraries for DB connection
+	- jinq library for handling DB queries
+- Test:> used Postman for REST API testing:
 	- http://localhost:8080/listCustomers with GET
 	- http://localhost:8080/addCustomer with POST
 	- http://localhost:8080/customer/test with PUT
 	- http://localhost:8080/customer/test with DELETE
-	
+
+GIT location: https://github.com/simhead/customermanagement
 RAML location: ./RAML/customer.raml
 
 Issues:
 1. slow db connection due to server being located in remote US - only applicable for first call, subsequent calls are using cached dB connection.	
 
 Future expansion:
-1. Products and Orders are defined in the placeholder for future expansion.
+1. Products and Orders are defined in the placeholder for future expansion and use customerID for primary key relationship.

@@ -29,7 +29,7 @@ import javax.ws.rs.*;
 public class CustomerApi  {
    private final CustomerApiService delegate = CustomerApiServiceFactory.getCustomerApi();
 
-    @DELETE
+    @DELETE 
     @Path("/{custId}")
     
     
@@ -73,7 +73,7 @@ public class CustomerApi  {
         
         @io.swagger.annotations.ApiResponse(code = 404, message = "Customer not found", response = void.class) })
     public Response updateCustomer(@ApiParam(value = "Customer id is required to perform the task",required=true) @PathParam("custId") String custId
-,@ApiParam(value = "" ) Customer body
+,@ApiParam(value = "" ) String body
 ,@Context SecurityContext securityContext)
     throws NotFoundException {
         return delegate.updateCustomer(custId,body,securityContext);

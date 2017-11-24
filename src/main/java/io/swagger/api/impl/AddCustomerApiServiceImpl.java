@@ -28,29 +28,25 @@ public class AddCustomerApiServiceImpl extends AddCustomerApiService {
 		StdErrLog logger = new StdErrLog();
 		logger.setDebugEnabled(true);
 		Log.setLog(logger);
-		logger.info("************** starting ", new Object[]{});
-		
+		logger.info("************** starting ", new Object[] {});
+
 		if (body != null) {
 			// Configure Jinq for the given JPA database connection
-			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestCreate");
-			
-			JSONParser parser = new JSONParser(); 
-				JSONObject json;
-				try {
-					json = (JSONObject) parser.parse(body);
-					AddCustomer.createDatabase(entityManagerFactory, (String)json.get("firstname"), (String)json.get("lastname"),(String)json.get("address"));
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
 
-				
-				
-
-
-			
-			
-			return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "Created!")).build();
+			JSONParser parser = new JSONParser();
+			JSONObject json;
+			try {
+				json = (JSONObject) parser.parse(body);
+				AddCustomer.createDatabase(entityManagerFactory, (String) json.get("firstname"),
+						(String) json.get("lastname"), (String) json.get("address"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, "Created!");
+			responseMessage.setCode(201);
+			return Response.ok().entity(responseMessage).build();
 		} else
 			return Response.noContent().build();
 
