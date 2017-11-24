@@ -19,15 +19,15 @@ You can then view the swagger listing here:
 http://localhost:8080/swagger.json
 ```
 
-SOLUTION REQUIREMENT:
-Design a RESTful API using RAML that contains a single resource, customers, and allows the following:
-•   List customers
-•   Create a new customer
-•   Update a customer
-•   Deletes a customer
+## SOLUTION REQUIREMENT:
+- Design a RESTful API using RAML that contains a single resource, customers, and allows the following:
+	- List customers
+	- Create a new customer
+	- Update a customer
+	- Deletes a customer
 You may constrain the customer object to first name, last name and addresses, and the format to JSON.
 
-APPROACH:
+## APPROACH:
 - Design:> used https://studio.restlet.com studio to define/design API specification
 - Development:> 
 	- restlet studio to export to RAML 1.0
@@ -47,11 +47,13 @@ APPROACH:
 	- http://localhost:8080/customer/test with PUT
 	- http://localhost:8080/customer/test with DELETE
 
+```
 GIT location: https://github.com/simhead/customermanagement
 RAML location: ./RAML/customer.raml
+```
 
-Issues:
-1. slow db connection due to server being located in remote US - only applicable for first call, subsequent calls are using cached dB connection.	
+## Issues:
+- slow db connection due to server being located in remote US - only applicable for first call, subsequent calls are using cached dB connection.	
 
-Future expansion:
-1. Products and Orders are defined in the placeholder for future expansion and use customerID for primary key relationship.
+## Future expansion:
+- Products and Orders are defined in the placeholder for future expansion and use customerID for primary key relationship.
