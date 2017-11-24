@@ -1,0 +1,217 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "",
+    "version" : "1.0.0",
+    "title" : "Customer API",
+    "contact" : {
+      "email" : "simhead@gmail.com"
+    }
+  },
+  "host" : "localhost:8080",
+  "tags" : [ {
+    "name" : "Customer",
+    "description" : "Design a RESTful API using RAML that contains a single resource, customers, and allows the following:\n•   List customers\n•   Create a new customer\n•   Update a customer\n•   Deletes a customer"
+  }, {
+    "name" : "Orders",
+    "description" : "placeholder for future expansion"
+  }, {
+    "name" : "Products",
+    "description" : "placeholder for future expansion"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/addCustomer" : {
+      "post" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Create customer",
+        "description" : "Create new customer",
+        "operationId" : "createCustomer",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created successfully"
+          },
+          "400" : {
+            "description" : "Bad request"
+          }
+        }
+      }
+    },
+    "/customer/{custId}" : {
+      "get" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Get customer by customer ID",
+        "operationId" : "getCustomer",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ {
+          "name" : "custId",
+          "in" : "path",
+          "description" : "Customer id is required to perform the task",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Customer"
+            }
+          },
+          "400" : {
+            "description" : "Invalid customer ID supplied"
+          },
+          "404" : {
+            "description" : "Customer not found"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Update customer by customer ID",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "updateCustomer",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "custId",
+          "in" : "path",
+          "description" : "Customer id is required to perform the task",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Customer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Updated successfully"
+          },
+          "400" : {
+            "description" : "Invalid customer ID supplied"
+          },
+          "404" : {
+            "description" : "Customer not found"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Delete customer by customer ID",
+        "description" : "This can only be done by the logged in user.",
+        "operationId" : "deleteCustomer",
+        "parameters" : [ {
+          "name" : "custId",
+          "in" : "path",
+          "description" : "Customer id is required to perform the task",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successfully deleted"
+          },
+          "400" : {
+            "description" : "Invalid customer ID supplied"
+          },
+          "404" : {
+            "description" : "Customer not found"
+          }
+        }
+      }
+    },
+    "/listCustomers" : {
+      "get" : {
+        "tags" : [ "Customer" ],
+        "summary" : "List all customers",
+        "operationId" : "listAllCustomers",
+        "produces" : [ "application/xml", "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Customer"
+            },
+            "headers" : {
+              "X-Rate-Limit" : {
+                "type" : "integer",
+                "format" : "int32",
+                "description" : "calls per hour allowed by the user"
+              },
+              "X-Expires-After" : {
+                "type" : "string",
+                "format" : "date",
+                "description" : "date in UTC when token expires"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Customer" : {
+      "type" : "object",
+      "required" : [ "customerid", "debt", "firstname", "lastname" ],
+      "properties" : {
+        "customerid" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Customer ID"
+        },
+        "firstname" : {
+          "type" : "string"
+        },
+        "lastname" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "debt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "salary" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Order" : {
+      "type" : "object",
+      "properties" : {
+        "orderId" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "description" : "placeholder for future expansion"
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "productId" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      },
+      "description" : "placeholder for future expansion"
+    }
+  }
+}

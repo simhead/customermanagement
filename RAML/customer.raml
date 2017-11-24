@@ -1,27 +1,124 @@
 #%RAML 1.0
-title: customer management
-version: v1
-baseUri: https://api.customers.com
-mediaType:  application/json
-securitySchemes:
-  oauth_2_0: !include securitySchemes/oauth_2_0.raml
+title: "Customer API"
+description: ""
+version: "1.0.0"
+protocols:
+- "HTTP"
+baseUri: "http://localhost:8080"
+mediaType:
+- "application/json"
 types:
-  Gist:  !include types/gist.raml
-  Gists: !include types/gists.raml
-resourceTypes:
-  collection: !include types/collection.raml
-traits:
-securedBy: [ oauth_2_0 ]
-
-/listcustomers:
-
-/addcustomer:
-
-/updatecustomer:
-
-/deletecustomer:
-
-/search:
-  /code:
-    type: collection
-    get:
+  Customer:
+    type: "object"
+    properties:
+      customerid:
+        type: "integer"
+        description: "Customer ID"
+      firstname:
+        type: "string"
+      lastname:
+        type: "string"
+      address:
+        type: "string"
+        required: false
+      debt:
+        type: "integer"
+      salary:
+        type: "integer"
+        required: false
+  Order:
+    type: "object"
+    description: "placeholder for future expansion"
+    properties:
+      orderId:
+        type: "integer"
+        format: "int64"
+        required: false
+  Product:
+    type: "object"
+    description: "placeholder for future expansion"
+    properties:
+      productId:
+        type: "integer"
+        format: "int64"
+        required: false
+/addCustomer:
+  displayName: "Add Customer"
+  post:
+    displayName: "Create customer"
+    description: "Create new customer"
+    body:
+      type: "Customer"
+    responses:
+      201:
+        description: "Created successfully"
+      400:
+        description: "Bad request"
+/customer/{custId}:
+  displayName: "Customer operation"
+  description: "This contains 3 operations: get customer details by customer Id, update\
+    \ customer by customer Id, delete customer by customer Id"
+  uriParameters:
+    custId:
+      type: "string"
+      description: "Customer id is required to perform the task"
+  get:
+    displayName: "Get customer by customer ID"
+    responses:
+      200:
+        description: "successful operation"
+        body:
+          application/xml:
+            type: "Customer"
+          application/json:
+            type: "Customer"
+      400:
+        description: "Invalid customer ID supplied"
+      404:
+        description: "Customer not found"
+  put:
+    displayName: "Update customer by customer ID"
+    description: "This can only be done by the logged in user."
+    body:
+      type: "Customer"
+    responses:
+      200:
+        description: "Updated successfully"
+      400:
+        description: "Invalid customer ID supplied"
+      404:
+        description: "Customer not found"
+  delete:
+    displayName: "Delete customer by customer ID"
+    description: "This can only be done by the logged in user."
+    responses:
+      204:
+        description: "Successfully deleted"
+      400:
+        description: "Invalid customer ID supplied"
+      404:
+        description: "Customer not found"
+/listCustomers:
+  displayName: "List all customers"
+  get:
+    displayName: "List all customers"
+    responses:
+      200:
+        description: "successful operation"
+        headers:
+          X-Rate-Limit:
+            type: "integer"
+            format: "int32"
+            description: "calls per hour allowed by the user"
+            required: false
+          X-Expires-After:
+            type: "datetime"
+            description: "date in UTC when token expires"
+            required: false
+        body:
+          application/xml:
+            type: "Customer"
+          application/json:
+            type: "Customer"
+      400:
+        description: "Bad request"
