@@ -34,7 +34,8 @@ You may constrain the customer object to first name, last name and addresses, an
 	- http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
 	- http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
 	- http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
-
+	NOTE: HTTP header needs to have the following definition: Content-Type=application/json
+- Error Handling:> only simple handling implemented at HTTP protocol level (status code with 400)
 ```
 GIT location: https://github.com/simhead/customermanagement
 ```
