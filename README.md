@@ -13,7 +13,7 @@ You may constrain the customer object to first name, last name and addresses, an
 2. A mobile application used by customer service representatives that uses the API to retrieve and update the customers details
 3. Simple extension of the API to support future resources such as orders and products
 
-## APPROACH:
+## DESIGN APPROACH:
 - Design:> used https://studio.restlet.com studio to define/design API specification
 - Development:> 
 	- restlet studio to export to RAML 1.0
@@ -27,11 +27,11 @@ You may constrain the customer object to first name, last name and addresses, an
 	- docker to run mysql server as a containerized DB server
 	- mysql-connect and JPA (Java Persistence API) libraries for DB connection
 - Test:> used Postman for REST API testing:
-	- http://localhost:8080/listCustomers for GET with HTTP return code 200 for successful extraction
-	- http://localhost:8080/addCustomer for POST with HTTP return code 201 for successful insertion
-	- http://localhost:8080/customer/{customerId} for PUT with HTTP return code 200 for successful update
-	- http://localhost:8080/customer/{customerId} for DELETE with HTTP return code 204 for successful deletion
-	- http://localhost:8080/customer/{customerId} for GET with HTTP return code 200 for successful extraction
+	- http://localhost:8080/listCustomers  :  GET with HTTP return code 200 for successful extraction
+	- http://localhost:8080/addCustomer  :  POST with HTTP return code 201 for successful insertion
+	- http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
+	- http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
+	- http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
 
 ```
 GIT location: https://github.com/simhead/customermanagement
@@ -65,10 +65,13 @@ http://localhost:8080/swagger.json
 - Commentary on the interaction of use case 1 with the API
 	- TBD
 - Commentary on interaction of use case 2 with the API
-	- TBD
+	- As part of Data design, the primary key for Customer Data is "CUSTOMERID" this means that 
+	A mobile application used by customer service reps can either:
+	1. use http://localhost:8080/listCustomers API to retrieve all customsers and look for "customerid" field value to use it for subsequet call "http://localhost:8080/customer/{customerId}" with PUT method to update Customer data fields
+	2. if "customerid" is known then just consume "http://localhost:8080/customer/{customerId}" service with PUT method to update Customer data fields
 - Commentary on how the API could be extended for use case 3
 	- TBD
 - Commentary on any 'interesting' design decisions you made (and alternative options considered)
-	- TBD
+	- See section "DESIGN APPROACH" for the solution design description
 - Link to git repository where the code is stored along with the README.md
 	- DONE - https://github.com/simhead/customermanagement/blob/master/README.md
