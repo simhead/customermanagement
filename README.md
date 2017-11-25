@@ -34,7 +34,9 @@ You may constrain the customer object to first name, last name and addresses, an
 	- http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
 	- http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
 	- http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
-	NOTE: HTTP header needs to have the following definition: Content-Type=application/json
+	NOTE: 
+		1. HTTP header needs to have the following definition: Content-Type=application/json
+		2. test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
 - Error Handling:> only simple handling implemented at HTTP protocol level (status code with 400)
 ```
 GIT location: https://github.com/simhead/customermanagement
@@ -60,7 +62,7 @@ http://localhost:8080/swagger.json
 
 ## Deliverables:
 - The RAML spec itself
-	- DONE - ./RAML/customer.raml
+	- DONE - https://github.com/simhead/customermanagement/blob/master/RAML/customer.raml
 - Commentary on the interaction of use case 1 with the API
 	- Consumer can setup a schedule task to consume http://localhost:8080/listCustomers API to get all customers in real time. NOTE: if the list is too big then this may not be a good idea
 	- To handle large set of data in near real time, the following can be done:
