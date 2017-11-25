@@ -36,8 +36,8 @@ You may constrain the customer object to first name, last name and addresses, an
 	- Get customer: http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
 	
 	NOTE: 
-		1. HTTP header needs to have the following definition: Content-Type=application/json
-		2. test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
+		- HTTP header needs to have the following definition: Content-Type=application/json
+		- test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
 - Error Handling:> only simple handling implemented at HTTP protocol level (status code with 400)
 ```
 GIT location: https://github.com/simhead/customermanagement
