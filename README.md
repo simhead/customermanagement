@@ -29,11 +29,12 @@ You may constrain the customer object to first name, last name and addresses, an
 	- docker to run mysql server as a containerized DB server
 	- mysql-connect and JPA (Java Persistence API) libraries for DB connection
 - Test:> used Postman for REST API testing:
-	- http://localhost:8080/listCustomers  :  GET with HTTP return code 200 for successful extraction
-	- http://localhost:8080/addCustomer  :  POST with HTTP return code 201 for successful insertion
-	- http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
-	- http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
-	- http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
+	- List customers: http://localhost:8080/listCustomers  :  GET with HTTP return code 200 for successful extraction
+	- Create new customer: http://localhost:8080/addCustomer  :  POST with HTTP return code 201 for successful insertion
+	- Update customer: http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
+	- Delete customer: http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
+	- Get customer: http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
+	
 	NOTE: 
 		1. HTTP header needs to have the following definition: Content-Type=application/json
 		2. test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
