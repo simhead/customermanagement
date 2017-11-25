@@ -12,6 +12,8 @@ import java.io.IOException;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.SecurityContext;
 
 import org.eclipse.jetty.util.log.Log;
@@ -28,8 +30,7 @@ public class AddCustomerApiServiceImpl extends AddCustomerApiService {
 		StdErrLog logger = new StdErrLog();
 		logger.setDebugEnabled(true);
 		Log.setLog(logger);
-		logger.info("************** starting ", new Object[] {});
-
+		
 		if (body != null) {
 			// Configure Jinq for the given JPA database connection
 			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
@@ -46,7 +47,8 @@ public class AddCustomerApiServiceImpl extends AddCustomerApiService {
 			}
 			ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, "Created!");
 			responseMessage.setCode(201);
-			return Response.ok().entity(responseMessage).build();
+					
+			return Response.status(201).entity(responseMessage).build();
 		} else
 			return Response.noContent().build();
 

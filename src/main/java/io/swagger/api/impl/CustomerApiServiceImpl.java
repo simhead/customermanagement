@@ -35,7 +35,7 @@ public class CustomerApiServiceImpl extends CustomerApiService {
 		
 		ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, "Deleted customer ID: "+custId);
 		responseMessage.setCode(204);
-		return Response.ok().entity(responseMessage).build();
+		return Response.status(204).entity(responseMessage).build();
     }
     @Override
     public Response getCustomer(String custId, SecurityContext securityContext) throws NotFoundException {

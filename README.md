@@ -14,7 +14,9 @@ You may constrain the customer object to first name, last name and addresses, an
 3. Simple extension of the API to support future resources such as orders and products
 
 ## DESIGN APPROACH:
-- Design:> used https://studio.restlet.com studio to define/design API specification
+- Design:> 
+	- used https://studio.restlet.com studio to define/design API specification
+	- customerid field is primary key for Customer Data and defined as auto-increment
 - Development:> 
 	- restlet studio to export to RAML 1.0
 	- eclipse for development IDE
@@ -55,23 +57,34 @@ You can then view the swagger listing here:
 http://localhost:8080/swagger.json
 ```
 
-## TODO (Future expansion):
-- slow db connection due to server being located in remote US - only applicable for first call, subsequent calls are using cached dB connection.	
-- Products and Orders are defined in the placeholder for future expansion and use customerID for primary key relationship.
-
 ## Deliverables:
 - The RAML spec itself
 	- DONE - ./RAML/customer.raml
 - Commentary on the interaction of use case 1 with the API
-	- TBD
+	- Consumer can setup a schedule task to consume http://localhost:8080/listCustomers API to get all customers in real time. NOTE: if the list is too big then this may not be a good idea
+	- To handle large set of data in near real time, the following can be done:
+		- create an API to trigger a batch customer data extraction process and returns JobID # to Consumer.
+		- once this extraction is done then server stores in an outbound folder or in a queue and notifies to Consumer.
+		- finally Consumer access server's outbound folder or queue to retrieve the Customer data.
 - Commentary on interaction of use case 2 with the API
 	- As part of Data design, the primary key for Customer Data is "CUSTOMERID" this means that 
 	A mobile application used by customer service reps can either:
-	1. use http://localhost:8080/listCustomers API to retrieve all customsers and look for "customerid" field value to use it for subsequet call "http://localhost:8080/customer/{customerId}" with PUT method to update Customer data fields
+	1. consume http://localhost:8080/listCustomers API to retrieve all customsers and look for "customerid" field value to use it for subsequet call "http://localhost:8080/customer/{customerId}" with PUT method to update Customer data fields
 	2. if "customerid" is known then just consume "http://localhost:8080/customer/{customerId}" service with PUT method to update Customer data fields
 - Commentary on how the API could be extended for use case 3
-	- TBD
+	- Proposal to support Products (these are items that Customers can purchase) and Orders (Customer's purchased item(s)):
+		- Step 1: Extend Customer table to include field to store purchased item
+		- Step 2: Define Product table consists of ProductId, ProductName, ProductDescription, Price, Status, etc.
+		- Step 3: Define Order table consists of OrderId, OrderName, PurchaseDate, ActivationDate, Status, customerId (linked to Customer), ProductId (linked to Product), etc.
+		- Step 4: APIs to 
+			- create/update/decommision Product
+			- create/update/delete Order
+			- Plus more depends on requirement....
 - Commentary on any 'interesting' design decisions you made (and alternative options considered)
 	- See section "DESIGN APPROACH" for the solution design description
 - Link to git repository where the code is stored along with the README.md
 	- DONE - https://github.com/simhead/customermanagement/blob/master/README.md
+
+## TODO (Future expansion):
+- slow db connection due to server being located in remote US - only applicable for first call, subsequent calls are using cached dB connection.	
+- Products and Orders are defined in the placeholder for future expansion and use customerID for primary key relationship.
