@@ -34,8 +34,7 @@ You may constrain the customer object to first name, last name and addresses, an
 	- Update customer: http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
 	- Delete customer: http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
 	- Get customer: http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
-	
-	NOTE: 
+	- NOTE: 
 		- HTTP header needs to have the following definition: Content-Type=application/json
 		- test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
 - Error Handling:> only simple handling implemented at HTTP protocol level (status code with 400)
