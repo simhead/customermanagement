@@ -2,14 +2,13 @@ package io.swagger.api;
 
 import io.swagger.model.*;
 import io.swagger.api.CustomerApiService;
-import io.swagger.api.factories.CustomerApiServiceFactory;
-
 import io.swagger.annotations.ApiParam;
 
 import io.swagger.model.Customer;
 
 import java.util.List;
 import io.swagger.api.NotFoundException;
+import io.swagger.api.factories.CustomerApiServiceFactory;
 
 import java.io.InputStream;
 
