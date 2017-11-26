@@ -17,6 +17,15 @@ You may constrain the customer object to first name, last name and addresses, an
 - Design:> 
 	- used https://studio.restlet.com studio to define/design API specification
 	- customerid field is primary key for Customer Data and defined as auto-increment
+	- 3 main implementation services:
+		- listCustomers
+			- this is to list all customers
+		- addCustomer
+			- this is to add a new customer with Customer json data in Request Body
+		- customer: there are further 3 supported operations via HTTP method:
+			- get (GET): this is to get customer details by custoemrId
+			- update (PUT): this is to update customer details by customerId with Customer json data in Request Body
+			- delete (DELETE): this is to delete customer by customerId
 - Development:> 
 	- restlet studio to export to RAML 1.0
 	- eclipse for development IDE
