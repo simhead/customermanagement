@@ -26,14 +26,15 @@ You may constrain the customer object to first name, last name and addresses, an
 	- maven for building and running server environment
 	- json-simple library for handing json string
 	- mysql server for data storage
-	- docker to run mysql server as a containerized DB server
 	- mysql-connect and JPA (Java Persistence API) libraries for DB connection
 - Test:> used Postman for REST API testing:
 	- List customers: http://localhost:8080/listCustomers  :  GET with HTTP return code 200 for successful extraction
+		- response body contains Customer data list in either XML or JSON format
 	- Create new customer: http://localhost:8080/addCustomer  :  POST with HTTP return code 201 for successful insertion
 	- Update customer: http://localhost:8080/customer/{customerId}  :  PUT with HTTP return code 200 for successful update
 	- Delete customer: http://localhost:8080/customer/{customerId}  :  DELETE with HTTP return code 204 for successful deletion
 	- Get customer: http://localhost:8080/customer/{customerId}  :  GET with HTTP return code 200 for successful extraction
+		- response body contains Customer data list in either XML or JSON format
 	- NOTE: 
 		- HTTP header needs to have the following definition: Content-Type=application/json
 		- test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json

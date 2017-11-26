@@ -53,8 +53,8 @@ types:
     responses:
       201:
         description: "Created successfully"
-      400:
-        description: "Bad request"
+      415:
+        description: "something wrong with POST body data"
 /customer/{custId}:
   displayName: "Customer operation"
   description: "This contains 3 operations: get customer details by customer Id, update\
@@ -73,8 +73,6 @@ types:
             type: "Customer"
           application/json:
             type: "Customer"
-      400:
-        description: "Invalid customer ID supplied"
       404:
         description: "Customer not found"
   put:
@@ -85,19 +83,15 @@ types:
     responses:
       200:
         description: "Updated successfully"
-      400:
-        description: "Invalid customer ID supplied"
-      404:
-        description: "Customer not found"
+      415:
+        description: "something wrong with PUT body data"
   delete:
     displayName: "Delete customer by customer ID"
     description: "This can only be done by the logged in user."
     responses:
       204:
         description: "Successfully deleted"
-      400:
-        description: "Invalid customer ID supplied"
-      404:
+     404:
         description: "Customer not found"
 /listCustomers:
   displayName: "List all customers"
@@ -121,5 +115,5 @@ types:
             type: "Customer"
           application/json:
             type: "Customer"
-      400:
-        description: "Bad request"
+      404:
+        description: "Customer not found"
