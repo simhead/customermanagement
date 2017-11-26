@@ -24,6 +24,12 @@ public class DBCustomer implements Serializable {
 	public DBCustomer() {
 	}
 
+	public DBCustomer(String firstname, String lastname, String address) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.address = address;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)

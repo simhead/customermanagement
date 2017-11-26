@@ -37,7 +37,18 @@ You may constrain the customer object to first name, last name and addresses, an
 	- NOTE: 
 		- HTTP header needs to have the following definition: Content-Type=application/json
 		- test script is available @ https://github.com/simhead/customermanagement/blob/master/json/customers.postman_collection.json
-- Error Handling:> only simple handling implemented at HTTP protocol level (status code with 400)
+- Error Handling:> only basic data handling is implemented at HTTP protocol level (status code with 40X)
+	- List customers: 
+		- 404 if no customers FOUND
+	- Create new customer: http://localhost:8080/addCustomer :
+		- 415 if there is something wrong with POST body data
+	- Update customer: http://localhost:8080/customer/{customerId}:
+		- 415 if there is something wrong with PUT body data 
+	- Delete customer: http://localhost:8080/customer/{customerId}:
+		- 404 no customer id found to delete
+	- Get customer: 
+		- 404 if customer id NOT FOUND
+
 ```
 GIT location: https://github.com/simhead/customermanagement
 ```
@@ -64,6 +75,7 @@ http://localhost:8080/swagger.json
 - The RAML spec itself
 	- DONE - https://github.com/simhead/customermanagement/blob/master/RAML/customer.raml
 - Commentary on the interaction of use case 1 with the API
+	- first call of http://localhost:8080/listCustomers service takes around 6 sec (this is to create DB connection object) but subsequent calls can use cached DB connection to reduce time significantly, i.e. less than 1 sec. NOTE: in PROD, this can be improved by using DB Connection Pooling. Either way this service can support the requirement of 5 min polling cycle.
 	- Consumer can setup a schedule task to consume http://localhost:8080/listCustomers API to get all customers in real time. NOTE: if the list is too big then this may not be a good idea
 	- To handle large set of data in near real time, the following can be done:
 		- create an API to trigger a batch customer data extraction process and returns JobID # to Consumer.
@@ -72,7 +84,7 @@ http://localhost:8080/swagger.json
 - Commentary on interaction of use case 2 with the API
 	- As part of Data design, the primary key for Customer Data is "CUSTOMERID" this means that 
 	A mobile application used by customer service reps can either:
-	1. consume http://localhost:8080/listCustomers API to retrieve all customsers and look for "customerid" field value to use it for subsequet call "http://localhost:8080/customer/{customerId}" with PUT method to update Customer data fields
+	1. consume http://localhost:8080/listCustomers API to retrieve all customers and look for "customerid" field value to use it for subsequent call "http://localhost:8080/customer/{customerId}" with PUT method to update Customer data fields
 	2. if "customerid" is known then just consume "http://localhost:8080/customer/{customerId}" service with PUT method to update Customer data fields
 - Commentary on how the API could be extended for use case 3
 	- Proposal to support Products (these are items that Customers can purchase) and Orders (Customer's purchased item(s)):
@@ -80,7 +92,7 @@ http://localhost:8080/swagger.json
 		- Step 2: Define Product table consists of ProductId, ProductName, ProductDescription, Price, Status, etc.
 		- Step 3: Define Order table consists of OrderId, OrderName, PurchaseDate, ActivationDate, Status, customerId (linked to Customer), ProductId (linked to Product), etc.
 		- Step 4: APIs to 
-			- create/update/decommision Product
+			- create/update/decommission Product
 			- create/update/delete Order
 			- Plus more depends on requirement....
 - Commentary on any 'interesting' design decisions you made (and alternative options considered)

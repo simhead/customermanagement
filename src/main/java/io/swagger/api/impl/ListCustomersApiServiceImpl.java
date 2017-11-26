@@ -21,30 +21,36 @@ public class ListCustomersApiServiceImpl extends ListCustomersApiService {
 	
     @Override
     public Response listAllCustomers(SecurityContext securityContext) throws NotFoundException {
-        // Configure Jinq for the given JPA database connection
-    	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
     	EntityManager em = entityManagerFactory.createEntityManager();
     	
-    	String customers_json = "{ \"Customers\":\n[ ";
     	TypedQuery<DBCustomer> query =
     		      em.createNamedQuery("Customer.findAll", DBCustomer.class);
     	List<DBCustomer> customers = query.getResultList();
     	JSONObject finalobj = new JSONObject();
     	JSONArray list = new JSONArray();
-        for (int ix = 0; ix < customers.size()-1; ix++) {
-        	JSONObject obj = new JSONObject();
-        	obj.put("customerid", Integer.toString(customers.get(ix).getCustomerid()));
-            obj.put("firstname", customers.get(ix).getFirstname());
-            obj.put("lastname", customers.get(ix).getLastname());
-            obj.put("address", customers.get(ix).getAddress());         
-            
-            list.add(obj);
+    	
+    	if (customers != null) {
+	        for (int ix = 0; ix < customers.size()-1; ix++) {
+	        	JSONObject obj = new JSONObject();
+	        	obj.put("customerid", Integer.toString(customers.get(ix).getCustomerid()));
+	            obj.put("firstname", customers.get(ix).getFirstname());
+	            obj.put("lastname", customers.get(ix).getLastname());
+	            obj.put("address", customers.get(ix).getAddress());         
+	            
+	            list.add(obj);
+	            
+	    	}
+	        finalobj.put("Customers",list); 
+            ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, finalobj.toJSONString().replace("\\\\",""));
+    		responseMessage.setCode(200);
+    		
+    		return Response.ok().entity(responseMessage).build();
+    	} else { 		
+    		ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.INFO, "No customers FOUND!");
+    		responseMessage.setCode(404);
+    		
+    		return Response.status(404).entity(responseMessage).build();
     	}
-        finalobj.put("Customers",list); 
-        ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.OK, finalobj.toJSONString().replace("\\\\",""));
-		responseMessage.setCode(200);
-	
-		return Response.ok().entity(responseMessage).build();
-     
     }
 }

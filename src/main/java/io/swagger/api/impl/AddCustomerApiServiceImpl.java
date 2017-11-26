@@ -31,8 +31,8 @@ public class AddCustomerApiServiceImpl extends AddCustomerApiService {
 		logger.setDebugEnabled(true);
 		Log.setLog(logger);
 		
-		if (body != null) {
-			// Configure Jinq for the given JPA database connection
+		logger.info("******************"+body.length(), new Object[]{} );
+		if (body != null && body.length() > 0) {
 			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("JPATestDefault");
 
 			JSONParser parser = new JSONParser();
@@ -49,8 +49,12 @@ public class AddCustomerApiServiceImpl extends AddCustomerApiService {
 			responseMessage.setCode(201);
 					
 			return Response.status(201).entity(responseMessage).build();
-		} else
-			return Response.noContent().build();
+		} else {
+			ApiResponseMessage responseMessage = new ApiResponseMessage(ApiResponseMessage.ERROR, "Somthing wrong with Customer Data!");
+			responseMessage.setCode(415);
+					
+			return Response.status(415).entity(responseMessage).build();
+		}
 
 	}
 }
